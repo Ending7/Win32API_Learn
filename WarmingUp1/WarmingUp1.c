@@ -140,9 +140,9 @@ void upper(char str[])
 	int i = 0;
 	int len = strlen(str);
 
-	for (i = 0; i < len; i++)
+	for (i = 0; i < len -1; i++)
 	{
-		if ((str[i] == 'e') || (str[i] == 'E'))
+		if (str[i] == 'e')
 			str[i] = toupper(str[i]);
 	}
 
@@ -222,21 +222,27 @@ void shift(char str[], char ch)
 void rdword(char str[])
 {
 	int i;
+	int random;
 	int len = strlen(str);
 	srand(time(NULL));
 
-	for (i = 0; i < len-1; i++)
+	for (i = 0; i < len - 1; i++)
 	{
+		random = rand() % 4;
 		if (isblank(str[i]))
 		{
-			if ((rand() % 4) + 1 == 1)
-				str[i] = '@';
-			else if ((rand() % 4) + 1 == 2)
+			if (random == 0)
 				str[i] = '%';
-			else if ((rand() % 4) + 1 == 3)
+			else if (random == 1)
+				str[i] = '@';
+			else if (random == 2)
 				str[i] = '#';
-			else 
+			else if (random == 3)
 				str[i] = '.';
+		}
+		else if ((str[i] == '%') || (str[i] == '#') || (str[i] == '@') || (str[i] == '.'))
+		{
+			str[i] = ' ';
 		}
 	}
 	return 0;
