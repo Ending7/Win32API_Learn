@@ -2,12 +2,15 @@
 #include <ctype.h>
 #include <windows.h>
 #include <string.h>
+#include <time.h>
+#include <stdlib.h>
 
 #define LEN 61 // 마지막 공간에는 null 삽입
 
 int check(char str[]); // 예외처리
 void order(char str[]); // 명령어 입력
-void upper(char str[]); // 대문자 변경
+void upper(char str[]); // e를 대문자로 변경
+void rdword(char str[]); // blank에 랜덤 문자 출력
 int wordcount(char str[]); // 단어 개수 출력
 void change(char str[]); // 대소문자 변환
 void shift(char str[], char ch); //좌 우 시프트
@@ -77,10 +80,10 @@ int check(char str[])
 
 void order(char str[])
 {
-	
+
 	char ch;
 	char str2[61];
-	int count =0; 
+	int count = 0;
 
 	while (1)
 	{
@@ -90,18 +93,24 @@ void order(char str[])
 		printf("[문자 개수: %d개]\n", count);
 		printf("[명령어 목록]\n");
 		printf("e/E: 단어에 e 또는 E자가 있는 경우에는 그 단어를 모두 대문자로 바꾸고 출력\n");
+		printf("f/F: 모든 공백에 랜덤한 문자(@, %%, # 또는 .)를 넣고 출력\n");
 		printf("l/L: 단어의 개수를 출력 (공백을 기준으로 단어 분리한다)	\n");
 		printf("c/C: 대문자는 소문자로, 소문자는 대문자로 바꾸기\n");
 		printf("a/A: 문장의 문자를 좌측/우측으로 한 문자씩 이동한다.\n");
 		printf("q/Q: 프로그램을 종료\n");
 		printf("명령어 입력: ");
-		scanf_s(" %c",&ch);
+		scanf_s(" %c", &ch);
 
 		switch (ch)
 		{
 		case 'e':
 		case 'E':
 			upper(str);
+			break;
+
+		case 'f':
+		case 'F':
+			rdword(str);
 			break;
 
 		case 'l':
@@ -116,7 +125,7 @@ void order(char str[])
 
 		case 'a':
 		case 'A':
-			shift(str,ch);
+			shift(str, ch);
 			break;
 
 		case 'q':
@@ -128,7 +137,7 @@ void order(char str[])
 }
 
 void upper(char str[])
-{	
+{
 	int i = 0;
 	int len = strlen(str);
 
@@ -137,7 +146,7 @@ void upper(char str[])
 		if ((str[i] == 'e') || (str[i] == 'E'))
 			str[i] = toupper(str[i]);
 	}
-	
+
 }
 
 int wordcount(char str[])
@@ -147,7 +156,7 @@ int wordcount(char str[])
 	int wc = 0;
 	int len = strlen(str);
 
-	for (i = 0; str[i] != '.'; i++)
+	for (i = 0; i < len-1; i++)
 	{
 		if (isalpha(str[i]))
 		{
@@ -160,7 +169,7 @@ int wordcount(char str[])
 		else
 			waiting = 1;
 	}
-	
+
 	return wc;
 }
 
@@ -172,8 +181,8 @@ void change(char str[])
 	{
 		if (islower(str[i]))
 			str[i] = toupper(str[i]);
-		
-		else if(isupper(str[i]))
+
+		else if (isupper(str[i]))
 			str[i] = tolower(str[i]);
 	}
 }
@@ -188,7 +197,7 @@ void shift(char str[], char ch)
 	int len = strlen(str);
 
 
-		temp = str[len - 1];
+	temp = str[len - 1];
 
 	if (len > 2) // ab. 마침표 포함 최소 문자가 3개 이상이어야 시프트 가능.
 	{
@@ -202,10 +211,33 @@ void shift(char str[], char ch)
 
 		else if (ch == 'A')
 		{
-			temp = str[len-2];
-			for (i = len-1; i > 1; i--) // ab. 3개, abc. 4개
-				str[i-1] = str[i-2];
+			temp = str[len - 2];
+			for (i = len - 1; i > 1; i--) // ab. 3개, abc. 4개
+				str[i - 1] = str[i - 2];
 			str[0] = temp;
+		}
+	}
+	return 0;
+}
+
+void rdword(char str[])
+{
+	int i;
+	int len = strlen(str);
+	srand(time(NULL));
+
+	for (i = 0; i < len-1; i++)
+	{
+		if (isblank(str[i]))
+		{
+			if ((rand() % 4) + 1 == 1)
+				str[i] = '@';
+			else if ((rand() % 4) + 1 == 2)
+				str[i] = '%';
+			else if ((rand() % 4) + 1 == 3)
+				str[i] = '#';
+			else 
+				str[i] = '.';
 		}
 	}
 	return 0;
