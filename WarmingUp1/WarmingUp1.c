@@ -82,7 +82,6 @@ void order(char str[])
 {
 
 	char ch;
-	char str2[61];
 	int count = 0;
 
 	while (1)
@@ -199,7 +198,7 @@ void shift(char str[], char ch)
 
 	temp = str[len - 1];
 
-	if (len > 2) // ab. 마침표 포함 최소 문자가 3개 이상이어야 시프트 가능.
+	if (len > 2) // ab. 마침표 포함 최소 문자가 3개 이상이어야 시프트 가능.		
 	{
 		if (ch == 'a')
 		{
