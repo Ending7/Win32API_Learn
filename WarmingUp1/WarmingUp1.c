@@ -138,14 +138,32 @@ void order(char str[])
 void upper(char str[])
 {
 	int i = 0;
+	int num;
 	int len = strlen(str);
 
-	for (i = 0; i < len -1; i++)
+	for (int i = 0; i < len - 1; i++)
 	{
 		if (str[i] == 'e')
-			str[i] = toupper(str[i]);
-	}
+		{
+			num = i;
+			while (isalpha(str[i]))
+			{
+				str[i] = toupper(str[i]);
+				i++;
+			}
+			i = num;
+			while (isalpha(str[i]) && i!=0)
+			{	
+		
+				str[i] = toupper(str[i]);
+				i--;
+				if(i == 0)
+					str[i] = toupper(str[i]);
 
+			}
+			i = num;
+		}
+	}
 }
 
 int wordcount(char str[])
@@ -155,7 +173,7 @@ int wordcount(char str[])
 	int wc = 0;
 	int len = strlen(str);
 
-	for (i = 0; i < len-1; i++)
+	for (i = 0; i < len - 1; i++)
 	{
 		if (isalpha(str[i]))
 		{
