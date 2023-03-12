@@ -15,6 +15,10 @@ void Even(int arr[ROW][COLUMN]);
 void Odd(int arr[ROW][COLUMN]);
 void Max(int arr[ROW][COLUMN]);
 void Min(int arr[ROW][COLUMN]);
+void Rowadd(int arr[ROW][COLUMN], int checkarr[]);
+void Shuffle(int arr[ROW][COLUMN], int checkarr[]);
+void ReInsert(int arr[ROW][COLUMN], int checkarr[]);
+
 int original[20] = { 0 }; // 이 배열은 Insert함수 호출 시 초기 값이 저장되는 부분으로, 원래되로 되돌릴 때 사용한다.
 /* 0은 정렬을 할 수 있는 준비가 되어있는 상태. 1은 되어있는 상태.
 0에서 1이 될 때 다른 녀석들을 준비상태로 바꿔주어야 한다. 똑같은 정렬을 실행하면 1에서 0이되어 그 녀석도 준비상태가 된다. */
@@ -23,7 +27,7 @@ int main()
 {
 	char ch;
 	int arr[ROW][COLUMN] = { 0 };
-	int checkarr[2] = { 0 };
+	int checkarr[4] = { 0 };
 
 	Insert(arr); // 중복 없이 랜덤한 값 1~50 저장
 
@@ -55,8 +59,18 @@ int main()
 			case 'n':
 				Min(arr);
 				break;
+			case 'p':
+				Rowadd(arr, checkarr);
+				break;
+			case 'r':
+				Shuffle(arr, checkarr);
+				break;
+			case 's':
+				ReInsert(arr, checkarr);
+				break;
 			case 'q':
 				return 0;
+				
 			}
 
 		else
@@ -157,6 +171,8 @@ void Asc(int arr[ROW][COLUMN], int checkarr[])
 
 		checkarr[0] = 1;
 		checkarr[1] = 0;
+		checkarr[2] = 0;
+		checkarr[3] = 0;
 	}
 	else if (checkarr[0] == 1)
 	{
@@ -167,6 +183,7 @@ void Asc(int arr[ROW][COLUMN], int checkarr[])
 				num++;
 			}
 		checkarr[0] = 0;
+
 	}
 }
 
@@ -193,7 +210,7 @@ void Desc(int arr[ROW][COLUMN], int checkarr[])
 	if (checkarr[1] == 0)
 	{
 
-		for(w = 0; w < val2; w++) // 밑에꺼 싹 돌리고 나면 값 올라감.
+		for (w = 0; w < val2; w++) // 밑에꺼 싹 돌리고 나면 값 올라감.
 		{
 			for (k = 0; k < 4; k++)//밑에꺼 싹 돌리고나면 값 올라감
 			{
@@ -214,7 +231,7 @@ void Desc(int arr[ROW][COLUMN], int checkarr[])
 				}
 				k = temp;
 				temp2 = arr[index1][index2];
-				arr[index1][index2] = arr[ROW-1-k][w];
+				arr[index1][index2] = arr[ROW - 1 - k][w];
 				arr[ROW - 1 - k][w] = temp2;
 			}
 		}
@@ -222,6 +239,8 @@ void Desc(int arr[ROW][COLUMN], int checkarr[])
 
 		checkarr[1] = 1;
 		checkarr[0] = 0;
+		checkarr[2] = 0;
+		checkarr[3] = 0;
 	}
 
 	else if (checkarr[1] == 1)
@@ -245,7 +264,7 @@ void Even(int arr[ROW][COLUMN])
 		for (int j = 0; j < COLUMN; j++)
 		{
 			if (((arr[i][j] % 2) == 0))
-				printf("%-2d ", arr[i][j]);
+				printf("%02d ", arr[i][j]);
 			else
 				printf("00 ");
 		}
@@ -270,7 +289,7 @@ void Odd(int arr[ROW][COLUMN])
 		for (int j = 0; j < COLUMN; j++)
 		{
 			if (((arr[i][j] % 2) == 1))
-				printf("%-2d ", arr[i][j]);
+				printf("%02d ", arr[i][j]);
 			else
 				printf("00 ");
 		}
@@ -289,6 +308,7 @@ void Max(int arr[ROW][COLUMN])
 {
 	char ch;
 	int max;
+	int index1, index2;
 
 	printf("\n");
 	max = arr[0][0];
@@ -297,11 +317,27 @@ void Max(int arr[ROW][COLUMN])
 		for (int j = 0; j < COLUMN; j++)
 		{
 			if (max < arr[i][j])
+			{
 				max = arr[i][j];
-		}	
+				index1 = i;
+				index2 = j;
+			}
+		}
 	}
-	printf("최댓값: ");
-	printf("%d\n", max);
+
+	for (int i = 0; i < ROW; i++)
+	{
+		for (int j = 0; j < COLUMN; j++)
+		{
+			if ((i == index1) && (j == index2))
+			{
+				printf("%02d ", arr[index1][index2]);
+			}
+			else
+				printf("00 ");
+		}
+		printf("\n");
+	}
 
 	while (1)
 	{
@@ -316,7 +352,7 @@ void Min(int arr[ROW][COLUMN])
 {
 	char ch;
 	int min;
-
+	int index1 = 0, index2 = 0;
 	printf("\n");
 	min = arr[0][0];
 	for (int i = 0; i < ROW; i++)
@@ -324,11 +360,27 @@ void Min(int arr[ROW][COLUMN])
 		for (int j = 0; j < COLUMN; j++)
 		{
 			if (min > arr[i][j])
+			{
 				min = arr[i][j];
+				index1 = i;
+				index2 = j;
+			}
 		}
 	}
-	printf("최솟값: ");
-	printf("%d\n", min);
+
+	for (int i = 0; i < ROW; i++)
+	{
+		for (int j = 0; j < COLUMN; j++)
+		{
+			if ((i == index1) && (j == index2))
+			{
+				printf("%02d ", arr[index1][index2]);
+			}
+			else
+				printf("00 ");
+		}
+		printf("\n");
+	}
 
 	while (1)
 	{
@@ -337,4 +389,107 @@ void Min(int arr[ROW][COLUMN])
 			return 0;
 	}
 
+}
+
+
+void Rowadd(int arr[ROW][COLUMN], int checkarr[])
+{
+	// 각 행의 값을 더해 1열에 저장하는데, 먼저 안쪽의 for문이 다 돌아갈동안 sum에다가 값을 저장해두고, for문이 다 완료되면
+	// 다음 for문값이 하나 올라가기 전에 sum값을 arr[i][0]에 저장한다.
+	int sum = 0;
+	int Rock = 1;
+	int num = 0;
+	if (checkarr[2] == 0)
+	{
+		for (int i = 0; i < ROW; i++)
+		{
+			for (int j = 0; j < COLUMN; j++)
+			{
+				sum += arr[i][j];
+			}
+			arr[i][0] = sum;
+			sum = 0;
+		}
+		checkarr[2] = 1;
+		checkarr[0] = 0;
+		checkarr[1] = 0;
+		checkarr[3] = 0;
+	}
+
+	else if (checkarr[2] == 1)
+	{
+		for (int i = 0; i < ROW; i++)
+			for (int j = 0; j < COLUMN; j++)
+			{
+				arr[i][j] = original[num];
+				num++;
+			}
+		checkarr[2] = 0;
+	}
+
+}
+
+void Shuffle(int arr[ROW][COLUMN], int checkarr[])
+{
+	//기존의 숫자를 재정렬 해야함.
+	int num = 0;
+	int r1, r2;
+	int temp;
+	srand(time(NULL));
+
+	if (checkarr[3] == 0)
+	{
+
+		for (int i = 0; i < ROW; i++)
+			for (int j = 0; j < COLUMN; j++)
+			{
+				arr[i][j] = original[num];
+				num++;
+			}
+
+		for (int i = 0; i < ROW; i++)
+		{
+
+			for (int j = 0; j < COLUMN; j++)
+			{
+				r1 = (rand() % ROW);
+				r2 = (rand() % COLUMN);
+				temp = arr[i][j];
+				arr[i][j] = arr[r1][r2];
+				arr[r1][r2] = temp;
+			}
+		}
+
+		checkarr[3] = 1;
+		checkarr[0] = 0;
+		checkarr[1] = 0;
+		checkarr[2] = 0;
+	}
+
+	else if (checkarr[3] == 1)
+	{
+		for (int i = 0; i < ROW; i++)
+			for (int j = 0; j < COLUMN; j++)
+			{
+				arr[i][j] = original[num];
+				num++;
+			}
+		checkarr[3] = 0;
+	}
+}
+
+void ReInsert(int arr[ROW][COLUMN], int checkarr[])
+{
+	for (int i = 0; i < ROW; i++) // 값 0으로 초기화
+		for (int j = 0; j < COLUMN; j++)
+			arr[i][j] = 0;
+
+	for (int i = 0; i < 20; i++) // 값 0으로 초기화
+			original[i] = 0;
+
+	for (int i = 0; i < 4; i++) // 값 0으로 초기화
+		checkarr[i] = 0;
+
+	Insert(arr);
+	
 }
