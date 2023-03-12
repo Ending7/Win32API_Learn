@@ -11,12 +11,13 @@ int Checkdup(int arr[ROW][COLUMN], int num);
 void Output(int arr[ROW][COLUMN]);
 void Asc(int arr[ROW][COLUMN], int checkarr[]);
 void Desc(int arr[ROW][COLUMN], int checkarr[]);
-
+void Even(int arr[ROW][COLUMN]);
+void Odd(int arr[ROW][COLUMN]);
+void Max(int arr[ROW][COLUMN]);
+void Min(int arr[ROW][COLUMN]);
 int original[20] = { 0 }; // 이 배열은 Insert함수 호출 시 초기 값이 저장되는 부분으로, 원래되로 되돌릴 때 사용한다.
 /* 0은 정렬을 할 수 있는 준비가 되어있는 상태. 1은 되어있는 상태.
 0에서 1이 될 때 다른 녀석들을 준비상태로 바꿔주어야 한다. 똑같은 정렬을 실행하면 1에서 0이되어 그 녀석도 준비상태가 된다. */
-
-
 
 int main()
 {
@@ -42,7 +43,22 @@ int main()
 			case 'd':
 				Desc(arr, checkarr);
 				break;
+			case 'e':
+				Even(arr);
+				break;
+			case 'o':
+				Odd(arr);
+				break;
+			case 'm':
+				Max(arr);
+				break;
+			case 'n':
+				Min(arr);
+				break;
+			case 'q':
+				return 0;
 			}
+
 		else
 		{
 			printf("올바른 명령어를 입력하기 바랍니다.");
@@ -218,4 +234,107 @@ void Desc(int arr[ROW][COLUMN], int checkarr[])
 			}
 		checkarr[1] = 0;
 	}
+}
+
+void Even(int arr[ROW][COLUMN])
+{
+	char ch;
+	system("cls");
+	for (int i = 0; i < ROW; i++)
+	{
+		for (int j = 0; j < COLUMN; j++)
+		{
+			if (((arr[i][j] % 2) == 0))
+				printf("%-2d ", arr[i][j]);
+			else
+				printf("00 ");
+		}
+		printf("\n");
+	}
+
+	while (1)
+	{
+		printf("Press Enter...\n");
+		if ((ch = getch()) == 13)
+			return 0;
+	}
+}
+
+void Odd(int arr[ROW][COLUMN])
+{
+	char ch;
+
+	system("cls");
+	for (int i = 0; i < ROW; i++)
+	{
+		for (int j = 0; j < COLUMN; j++)
+		{
+			if (((arr[i][j] % 2) == 1))
+				printf("%-2d ", arr[i][j]);
+			else
+				printf("00 ");
+		}
+		printf("\n");
+	}
+
+	while (1)
+	{
+		printf("Press Enter...\n");
+		if ((ch = getch()) == 13)
+			return 0;
+	}
+}
+
+void Max(int arr[ROW][COLUMN])
+{
+	char ch;
+	int max;
+
+	printf("\n");
+	max = arr[0][0];
+	for (int i = 0; i < ROW; i++)
+	{
+		for (int j = 0; j < COLUMN; j++)
+		{
+			if (max < arr[i][j])
+				max = arr[i][j];
+		}	
+	}
+	printf("최댓값: ");
+	printf("%d\n", max);
+
+	while (1)
+	{
+		printf("Press Enter...\n");
+		if ((ch = getch()) == 13)
+			return 0;
+	}
+
+}
+
+void Min(int arr[ROW][COLUMN])
+{
+	char ch;
+	int min;
+
+	printf("\n");
+	min = arr[0][0];
+	for (int i = 0; i < ROW; i++)
+	{
+		for (int j = 0; j < COLUMN; j++)
+		{
+			if (min > arr[i][j])
+				min = arr[i][j];
+		}
+	}
+	printf("최솟값: ");
+	printf("%d\n", min);
+
+	while (1)
+	{
+		printf("Press Enter...\n");
+		if ((ch = getch()) == 13)
+			return 0;
+	}
+
 }
