@@ -1,0 +1,9 @@
+﻿  WarmingUp4.c
+C:\Users\jang2\Desktop\실습\Win32API_Learn\WarmingUp4\WarmingUp4.c(48,8): warning C4244: '함수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\jang2\Desktop\실습\Win32API_Learn\WarmingUp4\WarmingUp4.c(85,10): warning C4098: 'Init': 'void' 함수에서 값을 반환하고 있습니다.
+C:\Users\jang2\Desktop\실습\Win32API_Learn\WarmingUp4\WarmingUp4.c(91,8): warning C4244: '함수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\jang2\Desktop\실습\Win32API_Learn\WarmingUp4\WarmingUp4.c(177,8): warning C4244: '함수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\jang2\Desktop\실습\Win32API_Learn\WarmingUp4\WarmingUp4.c(178,7): warning C4013: 'getch'이(가) 정의되지 않았습니다. extern은 int형을 반환하는 것으로 간주합니다.
+C:\Users\jang2\Desktop\실습\Win32API_Learn\WarmingUp4\WarmingUp4.c(191,11): warning C4098: 'Order': 'void' 함수에서 값을 반환하고 있습니다.
+C:\Users\jang2\Desktop\실습\Win32API_Learn\WarmingUp4\WarmingUp4.c(305,10): warning C4098: 'Order': 'void' 함수에서 값을 반환하고 있습니다.
+  WarmingUp4.vcxproj -> C:\Users\jang2\Desktop\실습\Win32API_Learn\WarmingUp4\x64\Debug\WarmingUp4.exe
