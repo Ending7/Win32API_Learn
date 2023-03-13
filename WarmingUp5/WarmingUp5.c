@@ -9,6 +9,8 @@ int SumDay(int year, int month, int day); // 총 일수 구하기
 int LeepYear(int year); // 윤년이면 1 아니면 0반환
 int Dayofweek(int sumday); // 요일구하기
 void Output(char** str, int dayofweek, int year, int month); // 화면에 요일 출력
+void Sequence(int year);
+void YearMonthDay(int year, char** str);
 
 int main()
 {
@@ -34,8 +36,9 @@ int main()
 
 		else if ((ch == 'f') || (ch == 'F')) //해를 입력하면 모든 달의 마지막날의 날짜와 요일을 출력한다.
 		{
-
-
+			printf("년도: ");
+			scanf_s("%d", &year);
+			Sequence(year);
 		}
 
 	}
@@ -138,9 +141,12 @@ int Error(int year, int month, int day)
 void PressEnter()
 {
 	char ch;
-	printf("\nPress Enter...");
-	if ((ch = _getch()) == 13)
-		return 0;
+	while (1)
+	{
+		printf("\nPress Enter...");
+		if ((ch = _getch()) == 13)
+			return 0;
+	}
 }
 
 int SumDay(int year, int month, int day) // 총 일수 구하기
@@ -273,5 +279,87 @@ void Output(char** str, int dayofweek, int year, int month)
 		dayofweek++;
 		if ((dayofweek % 7) == 0) // 월 ~ 일까지 출력하고 나면 한칸 아래로 이동한다.
 			printf("\n");
+	}
+}
+
+void Sequence(int year)
+{
+	char* str[] =
+	{ "Sun", "Mon", "Tue", "Wed", "Tur", "Fri", "Sat" };
+
+	if ((year < 2000) || (year > 2030))
+	{
+		printf("년도: 2000 ~ 2030");
+		PressEnter();
+		return 0;
+	}
+	system("cls");
+	/*년도를 가지고 그 해의 1~12월까지, 마지막 일수와 요일까지 ex)2020-1-31 금요일*/
+	YearMonthDay(year,str);
+	PressEnter();
+}
+
+void YearMonthDay(int year, char** str)
+{
+	int leepyear;
+	int i,j;
+	int month = 13;
+	int ysumday = 0;
+	int sumday = 0;
+	int m_day;
+	int week;
+
+	/*윤년체크*/
+	leepyear = LeepYear(year); // 맞으면 1 아니면 0
+
+	/*년을 일수로 바꾸기*/
+	for (i = 1; i < year; i++)
+	{
+		if (LeepYear(i) == 0)
+			ysumday += 365;
+		else if (LeepYear(i) == 1)
+			ysumday += 366;
+	}
+
+	/*달을 일수로 바꾸기*/
+	for (i = 1; i < month; i++) // 월을 일수로 바꾼다(윤년 계산)
+	{
+		sumday = ysumday;
+		for (j = 1; j < i + 1; j++) // i가 1일 때 j는 1, i가 2일 때 j는 1,2
+		{
+			/*1월일땐 31, 2월일땐 1월 + 2월, 3월일땐 1월 + 2월 + 3월...*/		
+			switch (j)
+			{
+			case 1:
+			case 3:
+			case 5:
+			case 7:
+			case 8:
+			case 10:
+			case 12:
+				sumday += 31;
+				m_day = 31;
+				break;
+			case 2:
+				if (LeepYear(year) == 1)
+				{
+					sumday += 29; // 윤년은 하루가 더 많다.
+					m_day = 29;
+				}
+				else
+				{
+					sumday += 28;
+					m_day = 28;
+				}
+				break;
+			default:
+				sumday += 30;
+				m_day = 30;
+				break;
+			}
+		}
+		week = Dayofweek(sumday);
+		/*스위치문을 빠져 나오게되면 */
+		printf("%d-%d-%d: %s\n", year, i, m_day, str[week]); //년-월-일: 요일
 	}
 }
