@@ -1,4 +1,7 @@
 ﻿  WarmingUP6.c
-C:\Users\jang2\Desktop\실습\Win32API_Learn\WarmingUp6\WarmingUP6.c(14,7): warning C4101: 'ch' :참조되지 않은 지역 변수입니다.
-C:\Users\jang2\Desktop\실습\Win32API_Learn\WarmingUp6\WarmingUP6.c(38,11): warning C4098: 'PressEnter': 'void' 함수에서 값을 반환하고 있습니다.
+C:\Users\jang2\Desktop\실습\Win32API_Learn\WarmingUp6\WarmingUP6.c(59,11): warning C4098: 'PressEnter': 'void' 함수에서 값을 반환하고 있습니다.
+C:\Users\jang2\Desktop\실습\Win32API_Learn\WarmingUp6\WarmingUP6.c(127,10): warning C4098: 'Insert': 'void' 함수에서 값을 반환하고 있습니다.
+C:\Users\jang2\Desktop\실습\Win32API_Learn\WarmingUp6\WarmingUP6.c(71,3): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\jang2\Desktop\실습\Win32API_Learn\WarmingUp6\WarmingUP6.c(158,6): warning C4101: 'i' :참조되지 않은 지역 변수입니다.
+C:\Users\jang2\Desktop\실습\Win32API_Learn\WarmingUp6\WarmingUP6.c(157,6): warning C4101: 'calculate' :참조되지 않은 지역 변수입니다.
   WarmingUp6.vcxproj -> C:\Users\jang2\Desktop\실습\Win32API_Learn\WarmingUp6\x64\Debug\WarmingUp6.exe
