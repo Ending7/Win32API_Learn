@@ -1,0 +1,4 @@
+﻿  WarmingUP6.c
+C:\Users\jang2\Desktop\실습\Win32API_Learn\WarmingUp6\WarmingUP6.c(14,7): warning C4101: 'ch' :참조되지 않은 지역 변수입니다.
+C:\Users\jang2\Desktop\실습\Win32API_Learn\WarmingUp6\WarmingUP6.c(38,11): warning C4098: 'PressEnter': 'void' 함수에서 값을 반환하고 있습니다.
+  WarmingUp6.vcxproj -> C:\Users\jang2\Desktop\실습\Win32API_Learn\WarmingUp6\x64\Debug\WarmingUp6.exe

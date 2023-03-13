@@ -32,6 +32,7 @@ int main()
 			scanf_s("%d %d %d", &year, &month, &day);
 
 			Calander(year, month, day);
+
 		}
 
 		else if ((ch == 'f') || (ch == 'F')) //해를 입력하면 모든 달의 마지막날의 날짜와 요일을 출력한다.
@@ -233,6 +234,9 @@ void Output(char** str, int dayofweek, int year, int month)
 	int i, j, k;
 	int num = 1;
 	int dnum = 0;
+	int sumday = SumDay(year, month, 1);
+	int week = Dayofweek(sumday);
+	/*day를 뺀 녀석을 더한다. 그 후 +1을 더하고 그 녀석의 요일을 알아야 함. 즉 매달 3월 1일, 4월 1일 이런녀석의 요일.*/
 	printf("----------------------------------\n");
 	for (i = 0; i < 7; i++)
 	{
@@ -240,7 +244,7 @@ void Output(char** str, int dayofweek, int year, int month)
 	}
 	printf("\n----------------------------------\n");
 
-	for (j = 0; j < dayofweek; j++) // 공백
+	for (j = 0; j < week; j++) // 공백
 	{
 		printf("     ");
 	}
@@ -276,8 +280,8 @@ void Output(char** str, int dayofweek, int year, int month)
 	{
 		printf("%02d   ", num);
 		num++;
-		dayofweek++;
-		if ((dayofweek % 7) == 0) // 월 ~ 일까지 출력하고 나면 한칸 아래로 이동한다.
+		week++;
+		if ((week % 7) == 0) // 월 ~ 일까지 출력하고 나면 한칸 아래로 이동한다.
 			printf("\n");
 	}
 }
